@@ -12,3 +12,14 @@ const ReplySchema = new Schema({
 });
 
 const Reply = mongoose.model("Reply", ReplySchema);
+
+const ThreadSchema = new Schema({
+    text: { type: String },
+    delete_password: { type: String },
+    created_on: { type: Date, default: date },
+    bumped_on: { type: Date, default: date },
+    reported: { type: Boolean, default: false },
+    replies: { type: [ReplySchema] }
+});
+
+const Thread = mongoose.model("Thread", ThreadSchema);
