@@ -35,6 +35,6 @@ const BoardSchema = new Schema({
 
 const Board = mongoose.model("Board", BoardSchema);
 
-exports.board = Board;
-exports.thread = Thread;
-exports.reply = Reply;
+exports.Board = Board;
+exports.Thread = Thread;
+exports.Reply = Reply;
