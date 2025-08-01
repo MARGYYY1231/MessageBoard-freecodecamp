@@ -42,7 +42,7 @@ function findBoard(board, newThread, res) {
   });
 }
 
-async function mapThread(){
+async function mapThread(data){
   return data.threads.map((thread) => {
     const{
       _id,
