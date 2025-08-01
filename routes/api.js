@@ -84,7 +84,7 @@ module.exports = function (app) {
 
   })
   .get(async (req, res) => {
-    const board = req.body.board;
+    const board = req.params.board;
     BoardModel.findOne({ name: board }, async (err, data) => {
       if(!data){
         console.log("No Board with this name.");
