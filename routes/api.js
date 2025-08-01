@@ -49,7 +49,7 @@ async function mapThread(data){
       text,
       created_on,
       bumped_on,
-      reported_on,
+      reported,
       delete_password,
       replies,
     } = thread;
@@ -59,7 +59,7 @@ async function mapThread(data){
       text,
       created_on,
       bumped_on,
-      reported_on,
+      reported,
       delete_password,
       replies,
       replycount: thread.replies.length,
