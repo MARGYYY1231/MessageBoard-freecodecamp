@@ -42,6 +42,31 @@ function findBoard(board, newThread, res) {
   });
 }
 
+async function mapThread(){
+  return data.threads.map((thread) => {
+    const{
+      _id,
+      text,
+      created_on,
+      bumped_on,
+      reported_on,
+      delete_password,
+      replies,
+    } = thread;
+
+    return {
+      _id,
+      text,
+      created_on,
+      bumped_on,
+      reported_on,
+      delete_password,
+      replies,
+      replycount: thread.replies.length,
+    }
+  });
+}
+
 module.exports = function (app) {
   
   app.route('/api/threads/:board')
@@ -57,6 +82,19 @@ module.exports = function (app) {
 
     findBoard(board, newThread, res);
 
+  })
+  .get(async (req, res) => {
+    const board = req.body.board;
+    BoardModel.findOne({ name: board }, async (err, data) => {
+      if(!data){
+        console.log("No Board with this name.");
+        res.json({ error: "No Board with this name."});
+      } else{
+        console.log("data", data);
+        const threads = await mapThread(data);
+        res.json(threads);
+      }
+    });
   });
     
   app.route('/api/replies/:board');
