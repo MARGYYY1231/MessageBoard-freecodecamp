@@ -30,14 +30,14 @@ function saveBoard(board, newThread, res){
 }
 
 function findBoard(board, newThread, res) {
-  BoardModel.findOne({name: board}, async (err, Boardata) =>{
-    if(!BoardData){
+  BoardModel.findOne({name: board}, async (err, Boarddata) =>{
+    if(!Boarddata){
       const newBoard = await createEmptyBoard(board);
       console.log("newBoard", newBoard)
 
       saveBoard(newBoard, newThread, res);
     }else{
-
+      saveBoard(Boarddata, newThread, res);
     }
   });
 }
