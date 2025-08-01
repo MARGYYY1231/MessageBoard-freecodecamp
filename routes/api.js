@@ -21,10 +21,23 @@ async function createEmptyBoard(board) {
   });
 }
 
-function findBoard(board, thread) {
+function saveBoard(board, newThread, res){
+  board.threads.push(newThread);
+  board.save((err, data) => {
+    if(err || !data){res.send("There is an error saving in post.");}
+    else{res.json(newThread);}
+  });
+}
+
+function findBoard(board, newThread, res) {
   BoardModel.findOne({name: board}, async (err, Boardata) =>{
     if(!BoardData){
       const newBoard = await createEmptyBoard(board);
+      console.log("newBoard", newBoard)
+
+      saveBoard(newBoard, newThread, res);
+    }else{
+
     }
   });
 }
@@ -42,7 +55,7 @@ module.exports = function (app) {
     const newThread = await newEmptyThread(text, delete_password);
     console.log("New Thread", newThread)
 
-    findBoard(board, newThread);
+    findBoard(board, newThread, res);
 
   });
     
