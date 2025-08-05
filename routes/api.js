@@ -29,7 +29,7 @@ function saveBoard(board, newThread, res){
   });
 }
 
-function saveNewReportedThread(boardData, report_id){
+function saveNewReportedThread(boardData, report_id, res){
   const date = new Date();
   let reportedThread = boardData.threads.id(report_id);
   reportedThread.reported = true;
@@ -39,7 +39,7 @@ function saveNewReportedThread(boardData, report_id){
   });
 }
 
-function reportThread(report_id, board){
+function reportThread(report_id, board, res){
   BoardModel.findOne({ name: board }, (err, boardData) => {
       if(!boardData){
         res.json( "error", "Board Not found.");
@@ -121,7 +121,7 @@ module.exports = function (app) {
     const { report_id } = req.body;
     const board = req.params.board;
 
-    reportThread(report_id, board);
+    reportThread(report_id, board, res);
   });
     
   app.route('/api/replies/:board');
