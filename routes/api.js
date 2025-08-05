@@ -95,8 +95,15 @@ module.exports = function (app) {
         res.json(threads);
       }
     });
+  })
+  .put((req, res) => {
+    console.log("put", req.body);
+    const { report_id } = req.body;
+    const board = req.params.board;
+    BoardModel.findOne({ name: board }, async (err, data) => {
+      
+    });
   });
     
   app.route('/api/replies/:board');
-
 };
