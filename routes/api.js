@@ -32,7 +32,7 @@ function saveBoard(board, newThread, res){
 function saveNewReportedThread(boardData, report_id){
   const date = new Date();
   let reportedThread = boardData.threads.id(report_id);
-  reportedThread.reporte = true;
+  reportedThread.reported = true;
   reportedThread.bumped_on = date;
   boardData.save((err, updatedData) => {
     res.send("Success!");
