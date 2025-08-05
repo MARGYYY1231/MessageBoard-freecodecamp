@@ -63,7 +63,7 @@ async function mapThread(data){
       delete_password,
       replies,
       replycount: thread.replies.length,
-    }
+    };
   });
 }
 
