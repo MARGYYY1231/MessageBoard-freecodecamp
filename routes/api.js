@@ -44,7 +44,7 @@ function reportThread(report_id, board, res){
       if(!boardData){
         res.json({ error: "Board Not found." });
       }else{
-        saveNewReportedThread(boardData, report_id), res;
+        saveNewReportedThread(boardData, report_id, res);
       }
     });
 }
