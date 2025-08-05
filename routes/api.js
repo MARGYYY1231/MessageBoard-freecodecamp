@@ -29,6 +29,26 @@ function saveBoard(board, newThread, res){
   });
 }
 
+function saveNewReportedThread(boardData, report_id){
+  const date = new Date();
+  let reportedThread = boardData.threads.id(report_id);
+  reportedThread.reporte = true;
+  reportedThread.bumped_on = date;
+  boardData.save((err, updatedData) => {
+    res.send("Success!");
+  });
+}
+
+function reportThread(report_id, board){
+  BoardModel.findOne({ name: board }, (err, boardData) => {
+      if(!boardData){
+        res.json({ error: "Board Not found."});
+      }else{
+        saveNewReportedThread(boardData, report_id);
+      }
+    });
+}
+
 function findBoard(board, newThread, res) {
   BoardModel.findOne({name: board}, async (err, Boarddata) =>{
     if(!Boarddata){
@@ -100,9 +120,8 @@ module.exports = function (app) {
     console.log("put", req.body);
     const { report_id } = req.body;
     const board = req.params.board;
-    BoardModel.findOne({ name: board }, async (err, data) => {
-      
-    });
+
+    reportThread(report_id, board);
   });
     
   app.route('/api/replies/:board');
