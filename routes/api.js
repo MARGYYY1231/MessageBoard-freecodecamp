@@ -42,9 +42,9 @@ function saveNewReportedThread(boardData, report_id, res){
 function reportThread(report_id, board, res){
   BoardModel.findOne({ name: board }, (err, boardData) => {
       if(!boardData){
-        res.json( "error", "Board Not found.");
+        res.json({ error: "Board Not found." });
       }else{
-        saveNewReportedThread(boardData, report_id);
+        saveNewReportedThread(boardData, report_id), res;
       }
     });
 }
