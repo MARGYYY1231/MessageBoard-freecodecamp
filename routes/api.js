@@ -87,6 +87,10 @@ async function mapThread(data){
   });
 }
 
+function deleteThread(thread_id, delete_password, board, res){
+  
+}
+
 module.exports = function (app) {
   
   app.route('/api/threads/:board')
@@ -122,6 +126,13 @@ module.exports = function (app) {
     const board = req.params.board;
 
     reportThread(report_id, board, res);
+  })
+  .delete((req, res) => {
+    console.log("delete", req.body);
+    const { thread_id, delete_password } = req.body;
+    const board = req.params.board;
+
+    deleteThread(thread_id, delete_password, board, res);
   });
     
   app.route('/api/replies/:board');
