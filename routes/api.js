@@ -83,7 +83,7 @@ module.exports = function (app) {
     findBoard(board, newThread, res);
 
   })
-  .get(async (req, res) => {
+  .get((req, res) => {
     const board = req.params.board;
     BoardModel.findOne({ name: board }, async (err, data) => {
       if(!data){
