@@ -222,7 +222,7 @@ function updateThread(thread_id, newReply, data, res){
  * @param {*} res 
  */
 function viewReply(board, req, res){
-  BoardModel.fidOne({ name: board }, (err, data) => {
+  BoardModel.findOne({ name: board }, (err, data) => {
     if(!data){console.log("No Board found with this name."); res.json({error: "Board Not Found :("});}
     else{
       console.log("data", data);
