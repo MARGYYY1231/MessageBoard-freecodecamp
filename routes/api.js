@@ -29,6 +29,19 @@ function saveBoard(board, newThread, res){
   });
 }
 
+function findBoard(board, newThread, res) {
+  BoardModel.findOne({name: board}, async (err, Boarddata) =>{
+    if(!Boarddata){
+      const newBoard = await createEmptyBoard(board);
+      console.log("newBoard", newBoard)
+
+      saveBoard(newBoard, newThread, res);
+    }else{
+      saveBoard(Boarddata, newThread, res);
+    }
+  });
+}
+
 function saveNewReportedThread(boardData, report_id, res){
   const date = new Date();
   let reportedThread = boardData.threads.id(report_id);
@@ -47,19 +60,6 @@ function reportThread(report_id, board, res){
         saveNewReportedThread(boardData, report_id, res);
       }
     });
-}
-
-function findBoard(board, newThread, res) {
-  BoardModel.findOne({name: board}, async (err, Boarddata) =>{
-    if(!Boarddata){
-      const newBoard = await createEmptyBoard(board);
-      console.log("newBoard", newBoard)
-
-      saveBoard(newBoard, newThread, res);
-    }else{
-      saveBoard(Boarddata, newThread, res);
-    }
-  });
 }
 
 async function mapThread(data){
@@ -88,7 +88,19 @@ async function mapThread(data){
 }
 
 function deleteThread(thread_id, delete_password, board, res){
-  
+  BoardModel.findOne({ name: board }, (err, boardData) =>{
+    if(!boardData){
+      res.json({error: "Board not found."});
+    }else{
+      let threadToDelete = boardData.threads.id(thread_id);
+      if(threadToDelete.delete_password === delete_password){threadToDelete.remove();}
+      else{res.send("Incorrect Password"); return;}
+
+      boardData.save((err, updatedData) => {
+        res.send("Success!");
+      });
+    }
+  });
 }
 
 module.exports = function (app) {
