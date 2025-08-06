@@ -6,6 +6,12 @@ const BoardModel = require('../models').Board;
 const ThreadModel = require('../models').Thread;
 const ReplyModel = require('../models').Reply;
 
+/**
+ * Creates a new empty thread.
+ * @param {*} txt 
+ * @param {*} delete_pass 
+ * @returns 
+ */
 async function newEmptyThread(txt, delete_pass) {
   return new ThreadModel({
     text: txt,
@@ -14,6 +20,11 @@ async function newEmptyThread(txt, delete_pass) {
   });
 }
 
+/**
+ * Creates a new Board given the board name.
+ * @param {*} board 
+ * @returns 
+ */
 async function createEmptyBoard(board) {
   return new BoardModel({
     name: board,
@@ -21,6 +32,12 @@ async function createEmptyBoard(board) {
   });
 }
 
+/**
+ * Saves the board with the new Thread.
+ * @param {*} board 
+ * @param {*} newThread 
+ * @param {*} res 
+ */
 function saveBoard(board, newThread, res){
   board.threads.push(newThread);
   board.save((err, data) => {
@@ -29,6 +46,12 @@ function saveBoard(board, newThread, res){
   });
 }
 
+/**
+ * Checks if the board exists.
+ * @param {*} board 
+ * @param {*} newThread 
+ * @param {*} res 
+ */
 function findBoard(board, newThread, res) {
   BoardModel.findOne({name: board}, async (err, Boarddata) =>{
     if(!Boarddata){
@@ -42,6 +65,12 @@ function findBoard(board, newThread, res) {
   });
 }
 
+/**
+ * Saves the reported thread.
+ * @param {*} boardData 
+ * @param {*} report_id 
+ * @param {*} res 
+ */
 function saveNewReportedThread(boardData, report_id, res){
   const date = new Date();
   let reportedThread = boardData.threads.id(report_id);
@@ -52,6 +81,12 @@ function saveNewReportedThread(boardData, report_id, res){
   });
 }
 
+/**
+ * Reports a thread.
+ * @param {*} report_id 
+ * @param {*} board 
+ * @param {*} res 
+ */
 function reportThread(report_id, board, res){
   BoardModel.findOne({ name: board }, (err, boardData) => {
       if(!boardData){
@@ -62,6 +97,12 @@ function reportThread(report_id, board, res){
     });
 }
 
+/**
+ * Adds Extra property (replt_count) to thread.
+ * Reply count is used to count the number of replies in a thread.
+ * @param {*} data 
+ * @returns New Thread with reply_count proprty.
+ */
 async function mapThread(data){
   return data.threads.map((thread) => {
     const{
@@ -87,6 +128,11 @@ async function mapThread(data){
   });
 }
 
+/**
+ * Views Threads on a board.
+ * @param {*} board 
+ * @param {*} res 
+ */
 function viewThreads(board, res){
   BoardModel.findOne({ name: board }, async (err, data) => {
     if(!data){
@@ -100,6 +146,13 @@ function viewThreads(board, res){
   });
 }
 
+/**
+ * Deletes a thread if it has the correct password.
+ * @param {*} thread_id 
+ * @param {*} delete_password 
+ * @param {*} board 
+ * @param {*} res 
+ */
 function deleteThread(thread_id, delete_password, board, res){
   BoardModel.findOne({ name: board }, (err, boardData) =>{
     if(!boardData){
