@@ -340,8 +340,8 @@ module.exports = function (app) {
     reportReply(thread_id, reply_id, board, res);
   })
   .delete((req, res) => {
-    const { thread_id, report_id, delete_password } = req.body;
+    const { thread_id, reply_id, delete_password } = req.body;
     let board = req.params.board;
-    deleteReply(board, thread_id, report_id, delete_password, res);
+    deleteReply(board, thread_id, reply_id, delete_password, res);
   });
 };
