@@ -272,8 +272,7 @@ function deleteReply(board, thread_id, reply_id, delete_password, res){
       console.log("data", data);
       let thread = data.threads.id(thread_id);
       let reply = thread.replies.id(reply_id);
-      let pass = reply.delete_password;
-      if(pass === delete_password){
+      if(reply.delete_password === delete_password){
         reply.remove();
       }else{
         res.send("Incorrect Password. Reply not removed.");
@@ -341,7 +340,7 @@ module.exports = function (app) {
   })
   .delete((req, res) => {
     const { thread_id, reply_id, delete_password } = req.body;
-    let board = req.params.board;
+    const board = req.params.board;
     deleteReply(board, thread_id, reply_id, delete_password, res);
   });
 };
