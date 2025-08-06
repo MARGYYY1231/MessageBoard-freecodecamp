@@ -169,6 +169,52 @@ function deleteThread(thread_id, delete_password, board, res){
   });
 }
 
+/**
+ * Returns a new Reply Object.
+ * @param {*} text 
+ * @param {*} delete_password 
+ * @returns 
+ */
+async function createReply(text, delete_password) {
+  return new ReplyModel({
+    text: text,
+    delete_password: delete_password,
+  });
+}
+
+/**
+ * Adds Reply to a thread
+ * @param {*} thread_id 
+ * @param {*} board 
+ * @param {*} newReply 
+ * @param {*} res 
+ */
+function addReply(thread_id, board, newReply, res){
+  BoardModel.findOne({ name: board }, (err, data) => {
+    if(!data){res.json({ error: "Board Not Found."});}
+    else{
+      updateThread(thread_id, newReply, data, res);
+    }
+  });
+}
+
+/**
+ * Updates the thread to add thre reply.
+ * @param {*} thread_id 
+ * @param {*} newReply 
+ * @param {*} data 
+ * @param {*} res 
+ */
+function updateThread(thread_id, newReply, data, res){
+  const date = new Date();
+  let threadToReply = data.threads.id(thread_id);
+  threadToReply.bumped_on = date;
+  threadToReply.replies.push(newReply);
+  data.save((err, updatedData) => {
+    res.json(updatedData);
+  });
+}
+
 module.exports = function (app) {
   
   app.route('/api/threads/:board')
@@ -204,5 +250,11 @@ module.exports = function (app) {
     deleteThread(thread_id, delete_password, board, res);
   });
     
-  app.route('/api/replies/:board');
+  app.route('/api/replies/:board')
+  .post(async (req, res) => {
+    const { thread_id, text, delete_password } = req.body;
+    let board = req.params.board;
+    const newReply = await createReply(text, delete_password);
+    addReply(thread_id, board, newReply, res);
+  });
 };
