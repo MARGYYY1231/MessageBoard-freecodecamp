@@ -232,6 +232,13 @@ function viewReply(board, req, res){
   });
 }
 
+/**
+ * Reports Reply.
+ * @param {*} thread_id 
+ * @param {*} reply_id 
+ * @param {*} board 
+ * @param {*} res 
+ */
 function reportReply(thread_id, reply_id, board, res){
   BoardModel.findOne({ name: board }, (err, data) => {
     if(!data){res.json({error: "Board Not Found."});}
@@ -245,6 +252,35 @@ function reportReply(thread_id, reply_id, board, res){
 
       data.save((err, updatedData) => {
         if(!err) {res.send("Sucessfully reported a reply!");}
+      });
+    }
+  });
+}
+
+/**
+ * Deletes Reply.
+ * @param {*} board 
+ * @param {*} thread_id 
+ * @param {*} reply_id 
+ * @param {*} delete_password 
+ * @param {*} res 
+ */
+function deleteReply(board, thread_id, reply_id, delete_password, res){
+  BoardModel.findOne({ name: board },  (err, data) => {
+    if(!data){res.json({error: "Board with that name not found!"});}
+    else{
+      console.log("data", data);
+      let thread = data.threads.id(thread_id);
+      let reply = thread.replies.id(reply_id);
+      let pass = reply.delete_password;
+      if(pass === delete_password){
+        reply.remove();
+      }else{
+        res.send("Incorrect Password. Reply not removed.");
+        return;
+      }
+      data.save((err, updatedData) => {
+        if(!err){res.send("Suceesfully deleted reply.");}
       });
     }
   });
@@ -302,5 +338,10 @@ module.exports = function (app) {
     const { thread_id, reply_id } = req.body;
     const board = req.params.board;
     reportReply(thread_id, reply_id, board, res);
+  })
+  .delete((req, res) => {
+    const { thread_id, report_id, delete_password } = req.body;
+    let board = req.params.board;
+    deleteReply(board, thread_id, report_id, delete_password, res);
   });
 };
