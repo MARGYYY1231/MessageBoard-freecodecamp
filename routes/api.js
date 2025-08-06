@@ -215,6 +215,17 @@ function updateThread(thread_id, newReply, data, res){
   });
 }
 
+function viewReply(board, req, res){
+  BoardModel.fidOne({ name: board }, (err, data) => {
+    if(!data){console.log("No Board found with this name."); res.json({error: "Board Not Found :("});}
+    else{
+      console.log("data", data);
+      const thread = data.threads.id(req.query.thread_id);
+      res.json(thread);
+    }
+  });
+}
+
 module.exports = function (app) {
   
   app.route('/api/threads/:board')
@@ -255,6 +266,12 @@ module.exports = function (app) {
     const { thread_id, text, delete_password } = req.body;
     let board = req.params.board;
     const newReply = await createReply(text, delete_password);
+
     addReply(thread_id, board, newReply, res);
+  })
+  .get((req, res) => {
+    const board = req.params.board;
+
+    viewReply(board, req, res);
   });
 };
