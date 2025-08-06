@@ -87,6 +87,19 @@ async function mapThread(data){
   });
 }
 
+function viewThreads(board, res){
+  BoardModel.findOne({ name: board }, async (err, data) => {
+    if(!data){
+      console.log("No Board with this name.");
+      res.json({ error: "No Board with this name."});
+    } else{
+      console.log("data", data);
+      const threads = await mapThread(data);
+      res.json(threads);
+    }
+  });
+}
+
 function deleteThread(thread_id, delete_password, board, res){
   BoardModel.findOne({ name: board }, (err, boardData) =>{
     if(!boardData){
@@ -117,20 +130,11 @@ module.exports = function (app) {
     console.log("New Thread", newThread)
 
     findBoard(board, newThread, res);
-
   })
   .get((req, res) => {
     const board = req.params.board;
-    BoardModel.findOne({ name: board }, async (err, data) => {
-      if(!data){
-        console.log("No Board with this name.");
-        res.json({ error: "No Board with this name."});
-      } else{
-        console.log("data", data);
-        const threads = await mapThread(data);
-        res.json(threads);
-      }
-    });
+
+    viewThreads(board, res);
   })
   .put((req, res) => {
     console.log("put", req.body);
