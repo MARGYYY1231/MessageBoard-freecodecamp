@@ -215,6 +215,12 @@ function updateThread(thread_id, newReply, data, res){
   });
 }
 
+/**
+ * Shows the Reply.
+ * @param {*} board 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function viewReply(board, req, res){
   BoardModel.fidOne({ name: board }, (err, data) => {
     if(!data){console.log("No Board found with this name."); res.json({error: "Board Not Found :("});}
@@ -222,6 +228,24 @@ function viewReply(board, req, res){
       console.log("data", data);
       const thread = data.threads.id(req.query.thread_id);
       res.json(thread);
+    }
+  });
+}
+
+function reportReply(thread_id, reply_id, board, res){
+  BoardModel.findOne({ name: board }, (err, data) => {
+    if(!data){res.json({error: "Board Not Found."});}
+    else{
+      console.log("data", data);
+      let reportedThread = data.threads.id(thread_id);
+      let reportedReply = reportedThread.replies.id(reply_id);
+      const date = new Date();
+      reportedReply.bumped_on = date;
+      reportedReply.reported = true;
+
+      data.save((err, updatedData) => {
+        if(!err) {res.send("Sucessfully reported a reply!");}
+      });
     }
   });
 }
@@ -273,5 +297,10 @@ module.exports = function (app) {
     const board = req.params.board;
 
     viewReply(board, req, res);
+  })
+  .put((req, res) => {
+    const { thread_id, reply_id } = req.body;
+    const board = req.params.board;
+    reportReply(thread_id, reply_id, board, res);
   });
 };
