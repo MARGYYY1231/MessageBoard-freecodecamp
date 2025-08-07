@@ -42,7 +42,7 @@ function saveBoard(board, newThread, res){
   board.threads.push(newThread);
   board.save((err, data) => {
     if(err || !data){res.send("There is an error saving in post.");}
-    else{res.json(newThread); res.redirect('/b/' + board.name + '/' + newThread.id);}
+    else{res.json(newThread);}
   });
 }
 
@@ -221,16 +221,37 @@ function updateThread(thread_id, newReply, data, res){
  * @param {*} req 
  * @param {*} res 
  */
-function viewReply(board, req, res){
+function viewReply(board, req, res) {
+  const threadId = req.query.thread_id;
+
   BoardModel.findOne({ name: board }, (err, data) => {
-    if(!data){console.log("No Board found with this name."); res.json({error: "Board Not Found :("});}
-    else{
-      console.log("data", data);
-      const thread = data.threads.id(req.query.thread_id);
-      res.json(thread);
+    if (err || !data) {
+      console.log("No Board found with this name.");
+      return res.json({ error: "Board Not Found :(" });
     }
+
+    const thread = data.threads.id(threadId);
+    if (!thread) {
+      return res.json({ error: "Thread Not Found." });
+    }
+
+    // Prepare cleaned response
+    const cleanedThread = {
+      _id: thread._id,
+      text: thread.text,
+      created_on: thread.created_on,
+      bumped_on: thread.bumped_on,
+      replies: thread.replies.map(reply => ({
+        _id: reply._id,
+        text: reply.text,
+        created_on: reply.created_on
+      }))
+    };
+
+    res.json(cleanedThread);
   });
 }
+
 
 /**
  * Reports Reply.
