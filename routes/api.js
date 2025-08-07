@@ -193,13 +193,14 @@ function addReply(thread_id, board, newReply, res){
   BoardModel.findOne({ name: board }, (err, data) => {
     if(!data){res.json({ error: "Board Not Found."});}
     else{
-      updateThread(thread_id, newReply, data, res);
+      console.log("thread is being updated.")
+;      updateThread(thread_id, newReply, data, res);
     }
   });
 }
 
 /**
- * Updates the thread to add thre reply.
+ * Updates the thread to add the reply.
  * @param {*} thread_id 
  * @param {*} newReply 
  * @param {*} data 
@@ -210,6 +211,7 @@ function updateThread(thread_id, newReply, data, res){
   let threadToReply = data.threads.id(thread_id);
   threadToReply.bumped_on = date;
   threadToReply.replies.push(newReply);
+  console.log("thread is going to be saved.");
   data.save((err, updatedData) => {
     res.json(updatedData);
   });
