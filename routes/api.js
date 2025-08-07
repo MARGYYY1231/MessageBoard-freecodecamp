@@ -42,7 +42,7 @@ function saveBoard(board, newThread, res){
   board.threads.push(newThread);
   board.save((err, data) => {
     if(err || !data){res.send("There is an error saving in post.");}
-    else{res.json(newThread);}
+    else{res.json(newThread); res.redirect('/b/' + board + '/' + newThread.id);}
   });
 }
 
@@ -193,7 +193,7 @@ function addReply(thread_id, board, newReply, res){
   BoardModel.findOne({ name: board }, (err, data) => {
     if(!data){res.json({ error: "Board Not Found."});}
     else{
-      updateThread(thread_id, newReply, data, res);
+      updateThread(data, thread_id, newReply, data, res);
     }
   });
 }
@@ -205,13 +205,14 @@ function addReply(thread_id, board, newReply, res){
  * @param {*} data 
  * @param {*} res 
  */
-function updateThread(thread_id, newReply, data, res){
+function updateThread(board, thread_id, newReply, data, res){
   const date = new Date();
   let threadToReply = data.threads.id(thread_id);
   threadToReply.bumped_on = date;
   threadToReply.replies.push(newReply);
   data.save((err, updatedData) => {
     res.json(updatedData);
+    res.redirect('/b/' + board + '/' + thread_id + '?new_reply_id='+ newReply.id);
   });
 }
 
