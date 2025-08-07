@@ -347,6 +347,7 @@ module.exports = function (app) {
   .post(async (req, res) => {
     const { thread_id, text, delete_password } = req.body;
     let board = req.params.board;
+    console.log("Create new reply");
     const newReply = await createReply(text, delete_password);
 
     addReply(thread_id, board, newReply, res);
@@ -354,6 +355,7 @@ module.exports = function (app) {
   .get((req, res) => {
     const board = req.params.board;
 
+    console.log("View new reply");
     viewReply(board, req, res);
   })
   .put((req, res) => {
