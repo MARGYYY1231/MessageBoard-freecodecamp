@@ -21,22 +21,14 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Iframe only from same origin
-app.use(helmet.frameguard({
-  action: 'sameorigin'
-}));
+// Prevent clickjacking (only allow same origin)
+app.use(helmet.frameguard({ action: 'sameorigin' }));
 
-//DNS prefetching disabled
-app.use(helmet.dnsPrefetchControl({
-  allow: false
-}));
+// Disable DNS prefetching
+app.use(helmet.dnsPrefetchControl({ allow: false }));
 
-//If link from website is clicked then when it leads to the new page will not show which
-//website the link was clicked on in the referrer header.
-//will only do this if new page is part of our website
-app.use(helmet.referrerPolicy({
-  policy: 'sameorigin'
-}));
+// Set Referrer-Policy to only send the referrer to same-origin requests
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
 //Sample front-end
 app.route('/b/:board/')
