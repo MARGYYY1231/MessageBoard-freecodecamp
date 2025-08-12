@@ -56,6 +56,7 @@ function findBoard(board, newThread, res) {
   BoardModel.findOne({name: board}, async (err, Boarddata) =>{
     if(!Boarddata){
       const newBoard = await createEmptyBoard(board);
+      newBoard.save();
       console.log("newBoard", newBoard)
 
       saveBoard(newBoard, newThread, res);
