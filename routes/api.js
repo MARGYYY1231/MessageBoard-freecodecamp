@@ -42,7 +42,7 @@ function saveBoard(board, newThread, res){
   board.threads.push(newThread);
   board.save((err, data) => {
     if(err || !data){res.send("There is an error saving in post.");}
-    else{res.json(newThread);}
+    else{res.redirect(`/b/${board.name}/${newThread._id}`);}
   });
 }
 
