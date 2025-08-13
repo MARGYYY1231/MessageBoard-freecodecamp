@@ -43,8 +43,8 @@ function saveBoard(board, newThread, res){
   board.save((err, data) => {
     if(err || !data){res.send("There is an error saving in post.");}
     else{
-      if(process.env.NODE_ENV === 'test'){res.json(newThread);}
-      else{res.redirect(`/b/${board.name}/${newThread._id}`);}
+      res.json(newThread);
+      //res.redirect(`/b/${board.name}/${newThread._id}`);
     }
   });
 }
@@ -222,14 +222,7 @@ function updateThread(thread_id, newReply, data, res){
   threadToReply.replies.push(newReply);
   console.log("thread is going to be saved.");
   data.save((err, updatedData) => {
-    //res.json(updatedData);
-     if (process.env.NODE_ENV === 'test') {
-      // Send JSON for tests
-      res.json(updatedData);
-    } else {
-      // Redirect to thread page for normal usage
-      res.redirect(`/b/${data.name}/${thread_id}#${newReply._id}`);
-    }
+    res.json(updatedData);
   });
 }
 
