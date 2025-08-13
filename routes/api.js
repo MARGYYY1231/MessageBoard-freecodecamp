@@ -105,14 +105,15 @@ function reportThread(report_id, board, res){
  * @returns New Thread with reply_count proprty.
  */
 async function mapThread(data){
-  return data.threads.map((thread) => {
+  return data.threads
+  .sort((a, b) => b.bumped_on - a.bumped_on) // most recent first
+  .slice(0,10)
+  .map((thread) => {
     const{
       _id,
       text,
       created_on,
       bumped_on,
-      reported,
-      delete_password,
       replies,
     } = thread;
 
@@ -121,9 +122,13 @@ async function mapThread(data){
       text,
       created_on,
       bumped_on,
-      reported,
-      delete_password,
-      replies,
+      replies: replies
+        .slice(-3) // only the most recent 3 replies
+        .map((reply) => ({
+          _id: reply._id,
+          text: reply.text,
+          created_on: reply.created_on
+        })),
       replycount: thread.replies.length,
     };
   });
