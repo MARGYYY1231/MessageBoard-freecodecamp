@@ -13,7 +13,7 @@ suite('Functional Tests', function() {
     let testReplyPassword = 'replypass';
 
     test('Create a new thread on board "testboard"', function(done){
-        chaiHttp.request(server)
+        chai.request(server)
         .post(`/api/threads/${testBoard}`)
         .send({ text: 'Test thread', delete_password: testThreadPassword })
         .end(function(err, res){
