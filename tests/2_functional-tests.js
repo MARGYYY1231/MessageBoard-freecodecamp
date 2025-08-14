@@ -19,6 +19,7 @@ suite('Functional Tests', function() {
         .end(function(err, res){
             assert.equal(res.status, 200);
             assert.property(res.body, '_id');
+            testThreadId = res.body._id;
             assert.equal(res.body.text, 'Test thread');
             done();
         });
@@ -39,6 +40,17 @@ suite('Functional Tests', function() {
                 assert.property(res.body[0], 'replies');
                 assert.isAtMost(res.body[0].length, 3);
             }
+            done();
+        });
+    });
+
+    test('Create a new reply on board "testboard"', function(done){
+        chai.request(server)
+        .post(`/api/threads/${testBoard}`)
+        .send({thread_id: testThreadId, text: 'Test reply', delete_password: testReplyPassword })
+        .end(function(err, res){
+            assert.equal(res.status, 200);
+            testReplyId = res2.body.replies?.[0]?._id || null;
             done();
         });
     });
