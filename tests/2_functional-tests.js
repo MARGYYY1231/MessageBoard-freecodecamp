@@ -24,4 +24,25 @@ suite('Functional Tests', function() {
         });
     });
 
+    test('Get thread on board "testboard"', function(done){
+        chai.request(server)
+        .post(`/api/threads/${testBoard}`)
+        .send({ text: 'Test thread', delete_password: testThreadPassword })
+        .end(function(err, res){
+            assert.equal(res.status, 200);
+            assert.isArray(res.body);
+            assert.equal(res.body.text, 'Test thread');
+
+            //Chack if at most is 10 threads
+            assert.isAtMost(res.body.length, 10);
+
+            //Check if there are 3 replies
+            if(res.body.length > 0){
+                assert.property(res.body[0], 'replies');
+                assert.isAtMost(res.body[0].length, 3);
+            }
+            done();
+        });
+    });
+
 });
