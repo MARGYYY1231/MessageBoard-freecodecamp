@@ -191,6 +191,9 @@ async function createReply(text, delete_password) {
   return new ReplyModel({
     text: text,
     delete_password: delete_password,
+    bumped_on: new Date(),
+    created_on: new Date(),
+    reported: false,
   });
 }
 
