@@ -38,7 +38,7 @@ suite('Functional Tests', function() {
             //Check if there are 3 replies
             if(res.body.length > 0){
                 assert.property(res.body[0], 'replies');
-                assert.isAtMost(res.body[0].length, 3);
+                assert.isAtMost(res.body[0].replies.length, 3);
             }
             done();
         });
@@ -46,7 +46,7 @@ suite('Functional Tests', function() {
 
     test('Create a new reply on board "testboard"', function(done){
         chai.request(server)
-        .post(`/api/threads/${testBoard}`)
+        .post(`/api/replies/${testBoard}`)
         .send({thread_id: testThreadId, text: 'Test reply', delete_password: testReplyPassword })
         .end(function(err, res){
             assert.equal(res.status, 200);
