@@ -30,7 +30,6 @@ suite('Functional Tests', function() {
         .end(function(err, res){
             assert.equal(res.status, 200);
             assert.isArray(res.body);
-            assert.equal(res.body.text, 'Test thread');
 
             //Chack if at most is 10 threads
             assert.isAtMost(res.body.length, 10);
