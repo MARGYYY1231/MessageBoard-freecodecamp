@@ -26,8 +26,7 @@ suite('Functional Tests', function() {
 
     test('Get thread on board "testboard"', function(done){
         chai.request(server)
-        .post(`/api/threads/${testBoard}`)
-        .send({ text: 'Test thread', delete_password: testThreadPassword })
+        .get(`/api/threads/${testBoard}`)
         .end(function(err, res){
             assert.equal(res.status, 200);
             assert.isArray(res.body);
