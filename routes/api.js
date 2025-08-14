@@ -15,8 +15,11 @@ const ReplyModel = require('../models').Reply;
 async function newEmptyThread(txt, delete_pass) {
   return new ThreadModel({
     text: txt,
+    created_on: new Date(),
+    bumped_on: new Date(),
     delete_password: delete_pass,
     replies: [],
+    reported: false,
   });
 }
 
@@ -109,7 +112,7 @@ function reportThread(report_id, board, res){
  */
 async function mapThread(data){
   return data.threads
-  .sort((a, b) => b.bumped_on - a.bumped_on) // most recent first
+  .sort((a, b) => new Date(b.bumped_on) - new Date(a.bumped_on)) // most recent first
   .slice(0,10)
   .map((thread) => {
     const{
@@ -123,14 +126,14 @@ async function mapThread(data){
     return {
       _id,
       text,
-      created_on,
-      bumped_on,
+      created_on: new Date(created_on),
+      bumped_on: new Date(bumped_on),
       replies: replies
         .slice(-3) // only the most recent 3 replies
         .map((reply) => ({
           _id: reply._id,
           text: reply.text,
-          created_on: reply.created_on
+          created_on: new Date(reply.created_on)
         })),
       replycount: thread.replies.length,
     };
