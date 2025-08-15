@@ -84,7 +84,7 @@ function saveNewReportedThread(boardData, report_id, res){
   reportedThread.reported = true;
   reportedThread.bumped_on = date;
   boardData.save((err, updatedData) => {
-    res.send("Successfully Reported Thread!");
+    res.send("reported");
   });
 }
 
@@ -297,7 +297,7 @@ function reportReply(thread_id, reply_id, board, res){
       reportedReply.reported = true;
 
       data.save((err, updatedData) => {
-        if(!err) {res.send("Sucessfully reported a reply!");}
+        if(!err) {res.send("reported");}
       });
     }
   });

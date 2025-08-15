@@ -75,7 +75,7 @@ suite('Functional Tests', function() {
         .put(`/api/replies/${testBoard}`)
         .send( {thread_id: testThreadId, reply_id: testReplyId} )
         .end(function(err, res){
-            assert.equal(res.text, "Sucessfully reported a reply!");
+            assert.equal(res.text, "reported");
             done();
         });
     });
@@ -85,7 +85,7 @@ suite('Functional Tests', function() {
         .put(`/api/threads/${testBoard}`)
         .send( { thread_id: testThreadId } )
         .end(function(err, res){
-            assert.equal(res.text, "Successfully Reported Thread!");
+            assert.equal(res.text, "reported");
             done();
         });
     });
