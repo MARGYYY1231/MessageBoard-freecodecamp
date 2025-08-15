@@ -231,7 +231,8 @@ function updateThread(thread_id, newReply, data, res){
     if (process.env.NODE_ENV === 'test') {
       // Send JSON when testing
       //res.json(newReply);
-      res.json(updatedData);
+      const updatedThread = updatedData.threads.id(thread_id);
+      res.json(updatedThread);
     } else {
       // Redirect in normal usage
       res.redirect(`/b/${board}/${thread_id}#${newReply._id}`);

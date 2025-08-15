@@ -50,8 +50,8 @@ suite('Functional Tests', function() {
         .send({thread_id: testThreadId, text: 'Test reply', delete_password: testReplyPassword })
         .end(function(err, res){
             assert.equal(res.status, 200);
-            testReplyId = res.body.replies[0]._id || null;
-            console.log('testreplyid:', testReplyId)
+            testReplyId = res.body.replies?.[0]?._id || null;
+            console.log(testReplyId)
             done();
         });
     });
