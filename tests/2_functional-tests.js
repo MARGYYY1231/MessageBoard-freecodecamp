@@ -91,7 +91,7 @@ suite('Functional Tests', function() {
 
     test('Delete a reply on "testboard"', function(done){
         chai.request(server)
-        .delete_password(`/api/replies/${testBoard}`)
+        .delete(`/api/replies/${testBoard}`)
         .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: testReplyPassword })
         .end(function(err, res){
             assert.equal(res.text, 'Suceesfully deleted reply.')
