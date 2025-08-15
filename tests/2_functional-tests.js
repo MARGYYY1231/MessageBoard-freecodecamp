@@ -105,7 +105,7 @@ suite('Functional Tests', function() {
         .delete(`/api/threads/${testBoard}`)
         .send({ thread_id: testThreadId, delete_password: incorrectPassword })
         .end(function(err, res){
-            assert.equal(res.text, "Incorrect Password");
+            assert.equal(res.text, "incorrect password");
             done();
         });
     });
@@ -125,7 +125,7 @@ suite('Functional Tests', function() {
         .delete(`/api/threads/${testBoard}`)
         .send({ thread_id: testThreadId, delete_password: testThreadPassword })
         .end(function(err, res){
-            assert.equal(res.text, 'Suceesfully deleted thread.');
+            assert.equal(res.text, 'success');
             done();
         });
     });
