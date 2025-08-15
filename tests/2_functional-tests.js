@@ -55,4 +55,17 @@ suite('Functional Tests', function() {
         });
     });
 
+    test('Get reply from test thread on "testboard"', function(done){
+        chai.request(server)
+        .get(`/api/replies/${testBoard}`)
+        .query({ thread_id: testThreadId })
+        .end(function(err, res){
+            assert.equal(res.status, 200);
+            assert.property(res.body, 'replies');
+            assert.isArray(res.body.repllies);
+            assert.isAtLeast(res.body.replies.length, 1);
+            done();
+        });
+    });
+
 });
