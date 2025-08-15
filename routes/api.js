@@ -319,13 +319,13 @@ function deleteReply(board, thread_id, reply_id, delete_password, res){
       let thread = data.threads.id(thread_id);
       let reply = thread.replies.id(reply_id);
       if(reply.delete_password === delete_password){
-        reply.remove();
+        reply.text = "[deleted]";
       }else{
-        res.send("Incorrect Password. Reply not removed.");
+        res.send("incorrect password");
         return;
       }
       data.save((err, updatedData) => {
-        if(!err){res.send("Suceesfully deleted reply.");}
+        if(!err){res.send("success");}
       });
     }
   });

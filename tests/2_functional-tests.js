@@ -95,7 +95,7 @@ suite('Functional Tests', function() {
         .delete(`/api/replies/${testBoard}`)
         .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: incorrectPassword })
         .end(function(err, res){
-            assert.equal(res.text, "Incorrect Password. Reply not removed.");
+            assert.equal(res.text, "Iincorrect password");
             done();
         });
     });
@@ -115,7 +115,7 @@ suite('Functional Tests', function() {
         .delete(`/api/replies/${testBoard}`)
         .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: testReplyPassword })
         .end(function(err, res){
-            assert.equal(res.text, 'Suceesfully deleted reply.');
+            assert.equal(res.text, 'success');
             done();
         });
     });
