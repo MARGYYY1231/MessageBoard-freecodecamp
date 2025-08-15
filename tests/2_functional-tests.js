@@ -62,7 +62,7 @@ suite('Functional Tests', function() {
         .end(function(err, res){
             assert.equal(res.status, 200);
             assert.property(res.body, 'replies');
-            assert.isArray(res.body.repllies);
+            assert.isArray(res.body.replies);
             assert.isAtLeast(res.body.replies.length, 1);
             done();
         });
