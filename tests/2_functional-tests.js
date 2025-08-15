@@ -11,6 +11,7 @@ suite('Functional Tests', function() {
     let testReplyId;
     let testThreadPassword = 'threadpass';
     let testReplyPassword = 'replypass';
+    let incorrectPassword = 'incorrect';
 
     test('Create a new thread on board "testboard"', function(done){
         chai.request(server)
@@ -89,12 +90,32 @@ suite('Functional Tests', function() {
         });
     });
 
+    test('Try to delete a reply on "testboard with incorrect password"', function(done){
+        chai.request(server)
+        .delete(`/api/replies/${testBoard}`)
+        .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: incorrectPassword })
+        .end(function(err, res){
+            assert.equal(res.text, "Incorrect Password. Reply not removed.");
+            done();
+        });
+    });
+
+    test('Delete a reply on "testboard"', function(done){
+        chai.request(server)
+        .delete(`/api/threads/${testBoard}`)
+        .send({ thread_id: testThreadId, delete_password: incorrectPassword })
+        .end(function(err, res){
+            assert.equal(res.text, "Incorrect Password");
+            done();
+        });
+    });
+
     test('Delete a reply on "testboard"', function(done){
         chai.request(server)
         .delete(`/api/replies/${testBoard}`)
         .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: testReplyPassword })
         .end(function(err, res){
-            assert.equal(res.text, 'Suceesfully deleted reply.')
+            assert.equal(res.text, 'Suceesfully deleted reply.');
             done();
         });
     });
@@ -104,7 +125,7 @@ suite('Functional Tests', function() {
         .delete(`/api/threads/${testBoard}`)
         .send({ thread_id: testThreadId, delete_password: testThreadPassword })
         .end(function(err, res){
-            assert.equal(res.text, 'Suceesfully deleted thread.')
+            assert.equal(res.text, 'Suceesfully deleted thread.');
             done();
         });
     });
