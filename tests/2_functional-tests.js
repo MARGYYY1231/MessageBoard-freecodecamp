@@ -83,7 +83,7 @@ suite('Functional Tests', function() {
     test('Report a thread on "testboard"', function(done){
         chai.request(server)
         .put(`/api/threads/${testBoard}`)
-        .send( { report_id: testThreadId } )
+        .send( { thread_id: testThreadId } )
         .end(function(err, res){
             assert.equal(res.text, "Successfully Reported Thread!");
             done();

@@ -353,10 +353,10 @@ module.exports = function (app) {
   })
   .put((req, res) => {
     console.log("put", req.body);
-    const { report_id } = req.body;
+    const { thread_id } = req.body;
     const board = req.params.board;
 
-    reportThread(report_id, board, res);
+    reportThread(thread_id, board, res);
   })
   .delete((req, res) => {
     console.log("delete", req.body);
