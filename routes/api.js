@@ -222,9 +222,8 @@ function addReply(thread_id, board, newReply, res){
  * @param {*} res 
  */
 function updateThread(thread_id, newReply, data, res){
-  const date = new Date();
   let threadToReply = data.threads.id(thread_id);
-  threadToReply.bumped_on = date;
+  threadToReply.bumped_on = newReply.created_on;
   threadToReply.replies.push(newReply);
   console.log("thread is going to be saved.");
   data.save((err, updatedData) => {
