@@ -68,4 +68,13 @@ suite('Functional Tests', function() {
         });
     });
 
+    test('Report a relpy on "testboard"', function(done){
+        chai.request(server)
+        .put(`/api/replies/${testBoard}`)
+        .send( {thread_id: thread_id, reply_id: reply_id} )
+        .end(function(err, res){
+            assert.equal(res.text, "Sucessfully reported a reply!");
+            done();
+        });
+    });
 });
