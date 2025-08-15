@@ -51,6 +51,7 @@ suite('Functional Tests', function() {
         .end(function(err, res){
             assert.equal(res.status, 200);
             testReplyId = res.body.replies?.[0]?._id || null;
+            console.log('testreplyid:', testReplyId)
             done();
         });
     });
@@ -81,7 +82,7 @@ suite('Functional Tests', function() {
     test('Report a thread on "testboard"', function(done){
         chai.request(server)
         .put(`/api/threads/${testBoard}`)
-        .send( { thread_id: testThreadId } )
+        .send( { report_id: testThreadId } )
         .end(function(err, res){
             assert.equal(res.text, "Successfully Reported Thread!");
             done();
