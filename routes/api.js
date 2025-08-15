@@ -175,7 +175,7 @@ function deleteThread(thread_id, delete_password, board, res){
       else{res.send("Incorrect Password"); return;}
 
       boardData.save((err, updatedData) => {
-        res.send("Success!");
+        res.send("Suceesfully deleted thread.");
       });
     }
   });
