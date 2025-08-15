@@ -84,7 +84,7 @@ function saveNewReportedThread(boardData, report_id, res){
   reportedThread.reported = true;
   reportedThread.bumped_on = date;
   boardData.save((err, updatedData) => {
-    res.send("Success!");
+    res.send("Successfully Reported Thread!");
   });
 }
 

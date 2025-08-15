@@ -68,12 +68,22 @@ suite('Functional Tests', function() {
         });
     });
 
-    test('Report a relpy on "testboard"', function(done){
+    test('Report a reply on "testboard"', function(done){
         chai.request(server)
         .put(`/api/replies/${testBoard}`)
-        .send( {thread_id: thread_id, reply_id: reply_id} )
+        .send( {thread_id: testThreadId, reply_id: testReplyId} )
         .end(function(err, res){
             assert.equal(res.text, "Sucessfully reported a reply!");
+            done();
+        });
+    });
+
+    test('Report a thread on "testboard"', function(done){
+        chai.request(server)
+        .put(`/api/threads/${testBoard}`)
+        .send( { thread_id: testThreadId } )
+        .end(function(err, res){
+            assert.equal(res.text, "Successfully Reported Thread!");
             done();
         });
     });
