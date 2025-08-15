@@ -99,13 +99,13 @@ suite('Functional Tests', function() {
         });
     });
 
-    // test('Delete a reply on "testboard"', function(done){
-    //     chai.request(server)
-    //     .delete_password(`/api/replies/${testBoard}`)
-    //     .send({ thread_id: testThreadId, delete_password: testThreadPassword })
-    //     .end(function(err, res){
-    //         assert.equal(res.text, 'Suceesfully deleted thread.')
-    //         done();
-    //     });
-    // });
+    test('Delete a reply on "testboard"', function(done){
+        chai.request(server)
+        .delete(`/api/threads/${testBoard}`)
+        .send({ thread_id: testThreadId, delete_password: testThreadPassword })
+        .end(function(err, res){
+            assert.equal(res.text, 'Suceesfully deleted thread.')
+            done();
+        });
+    });
 });
