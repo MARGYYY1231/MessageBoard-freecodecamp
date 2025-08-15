@@ -95,7 +95,7 @@ suite('Functional Tests', function() {
         .delete(`/api/replies/${testBoard}`)
         .send({ thread_id: testThreadId, reply_id: testReplyId, delete_password: incorrectPassword })
         .end(function(err, res){
-            assert.equal(res.text, "Iincorrect password");
+            assert.equal(res.text, "incorrect password");
             done();
         });
     });
