@@ -28,6 +28,34 @@
   max-width: 1000px;
 }
 
+.card{
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  color: #5a5a5a;
+  margin-bottom: 15px;
+}
+
+.card input[type="text"],
+.card input[type="password"],
+.card textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.card button:hover,
+.card input[type="submit"]:hover {
+  background-color: #7695d4;
+}
+
 body {
   padding: 10px;
 }
