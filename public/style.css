@@ -65,7 +65,8 @@ body {
 
 .card input[type="submit"]{
   background-color: #A2D2FF;
-  align-self: left;
+  align-self: flex-start;
+  border-radius: 12px;
 }
 
 .card button:hover,
