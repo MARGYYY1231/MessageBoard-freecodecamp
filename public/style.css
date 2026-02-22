@@ -44,6 +44,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   min-height: 350px;
+  min-width: 300px;
 }
 
 .card h4 {
