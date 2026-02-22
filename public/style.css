@@ -1,6 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -57,16 +58,18 @@ body {
 .card input[type="password"],
 .card textarea {
   width: 100%;
+  max-width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
+  align-items: center;
 }
 
 .card input[type="submit"]{
   background-color: #A2D2FF;
   align-self: flex-start;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .card button:hover,
