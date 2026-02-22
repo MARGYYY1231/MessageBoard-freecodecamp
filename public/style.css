@@ -4,6 +4,22 @@
   background-color: #FFF1E6;
 }
 
+.header{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1{
+  font-size: 2.5rem;
+  color: #8faeea;
+}
+
+.header p{
+  font-size: 1rem;
+  color: #7a7a7a;
+  margin-top: 5px;
+}
+
 body {
   padding: 10px;
 }
