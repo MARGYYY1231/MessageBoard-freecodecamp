@@ -28,13 +28,13 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   border: none;
-
+  margin-top: 5px;
 }
 
 .header p{
   font-size: 1rem;
   color: #7a7a7a;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .container {
