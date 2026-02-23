@@ -80,6 +80,8 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   border: none;
+  margin-top: auto;
+  align-self: flex-end;
 }
 
 .card button:hover,
