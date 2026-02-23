@@ -7,6 +7,7 @@
 
 body {
   font-family: 'Nunito', sans-serif;
+  font-weight: 300;
   background-color: #FFF1E6;
 }
 
@@ -52,7 +53,7 @@ body {
 .card h2 {
   font-size: 1rem;
   color: #5a5a5a;
-  margin-bottom: 15px;
+  margin: 30px 30px 30px 30px;
   width: 100%;
   background-color: #FFF1E6;
 }
