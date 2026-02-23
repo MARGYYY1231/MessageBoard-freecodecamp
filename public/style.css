@@ -28,7 +28,12 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   border: none;
-  margin-top: 5px;
+  margin-top: 10px;
+  color: white;
+}
+
+.header button:hover{
+  background-color: #7695d4;
 }
 
 .header p{
