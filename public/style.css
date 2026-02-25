@@ -21,6 +21,31 @@ body {
   margin-bottom: 30px;
 }
 
+#submitThread {
+  background: #f5eee6;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 30px;
+}
+
+#submitThread input[type="text"],
+#submitThread input[type="password"],
+#submitThread textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#submitThread textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
 .header h1{
   font-size: 2.5rem;
   color: #8faeea;
