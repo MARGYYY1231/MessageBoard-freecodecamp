@@ -29,9 +29,9 @@ body {
   margin-bottom: 30px;
 }
 
-#submitThread input[type="text"],
-#submitThread input[type="password"],
-#submitThread textarea {
+.submitNewThread input[type="text"],
+.submitNewThread input[type="password"],
+.submitNewThread textarea {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -41,7 +41,7 @@ body {
   font-size: 14px;
 }
 
-#submitThread textarea {
+.submitNewThread textarea {
   min-height: 120px;
   resize: vertical;
 }
