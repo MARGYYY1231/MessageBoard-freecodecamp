@@ -21,7 +21,7 @@ body {
   margin-bottom: 30px;
 }
 
-#submitThread {
+.submitNewThread {
   background: #f5eee6;
   padding: 20px;
   border-radius: 12px;
