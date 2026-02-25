@@ -34,7 +34,8 @@
       $(function() {
         var currentBoard = window.location.pathname.slice(3);
         var url = "/api/threads/"+currentBoard;
-        $('#boardTitle').text('Welcome to '+currentBoard+' board!');
+        var boardName = currentBoard.charAt(0).toUpperCase() + currentBoard.slice(1).replace('/', "");
+        $('#boardTitle').text( boardName + ' Board!');
         $.ajax({
           type: "GET",
           url: url,
