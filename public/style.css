@@ -117,7 +117,8 @@ body {
   align-items: center;
 }
 
-.card input[type="submit"]{
+.card input[type="submit"],
+.submitNewThread input[type="submit"] {
   background-color: #A2D2FF;
   color: white;
   align-self: flex-start;
@@ -155,7 +156,10 @@ body {
 .thread {
   border: 2px solid black;
   padding: 5px;
-  margin-bottom: 5px;
+  background: #f5eee6;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 15px;
 }
 
 .id {
