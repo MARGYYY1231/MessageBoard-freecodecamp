@@ -118,8 +118,8 @@ body {
 }
 
 .card input[type="submit"],
-.submitNewThread input[type="submit"] 
-.thread form input[type="submit"] {
+.submitNewThread input[type="submit"],
+#reportThread input[type="submit"]{
   background-color: #268be9;
   color: white;
   align-self: flex-start;
