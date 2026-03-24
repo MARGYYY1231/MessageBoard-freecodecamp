@@ -9,18 +9,19 @@ Delete threads or replies using a password
 Report inappropriate content
 View the 10 most recent threads with their latest replies
 Hide sensitive fields (like delete passwords and reports) from public responses
-🛠️ Tech Stack
+
+# Tech Stack
 Backend: Node.js, Express
 Database: MongoDB
 Testing: Mocha & Chai
 Security Concepts: Input validation, data sanitization, secure deletion logic
 
 # Project Structure
-/routes        → API route handlers  
-/controllers   → Logic for threads and replies  
-/models        → MongoDB schemas  
-/tests         → Functional and unit tests  
-server.js      → Entry point of the application  
+/public     → Static frontend files (CSS, client-side JavaScript)  
+/routes     → API route handlers  
+/tests      → Functional and unit tests  
+/views      → HTML pages / templates  
+server.js   → Entry point of the application 
 
 # API Endpoints
 Threads
